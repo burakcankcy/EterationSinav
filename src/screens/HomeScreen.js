@@ -61,7 +61,6 @@ function HomeScreen(props) {
       </Pressable>
     );
   };
-  console.log(props.simpsons);
   return (
     <View style={styles.container}>
       {yukleniyor === false ? (
