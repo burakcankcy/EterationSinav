@@ -6,13 +6,14 @@ import {
   Image,
   ScrollView,
   Dimensions,
+  Pressable,
 } from 'react-native';
+import {Button} from 'react-native-paper';
 import {connect} from 'react-redux';
 const {width, height} = Dimensions.get('window');
 
 function DetailSimpsonScreen(props) {
   const detail = props.route.params.item;
-  console.log(detail.avatar);
   return (
     <ScrollView contentContainerStyle={styles.scrolView}>
       <View style={styles.imageView}>
@@ -30,6 +31,18 @@ function DetailSimpsonScreen(props) {
       <View style={styles.textInput}>
         <Text style={{fontSize: 16, color: 'gray'}}>{detail.about}</Text>
       </View>
+      <Button
+        onPress={() =>
+          props.navigation.navigate('EditSimpson', {
+            detail: detail,
+            index: props.route.params.index,
+          })
+        }
+        mode="contained"
+        style={styles.buttonStyle}
+        color="blue">
+        Edit Character
+      </Button>
     </ScrollView>
   );
 }

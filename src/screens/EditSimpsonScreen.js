@@ -15,13 +15,14 @@ import {saveCharacter} from '../redux/actions/getAction';
 
 const {width, height} = Dimensions.get('window');
 
-function AddSimpsonScreen(props) {
-  const [name, setName] = useState('');
-  const [title, setTitle] = useState('');
-  const [about, setAbout] = useState('');
+function EditSimpsonScreen(props) {
+  const [name, setName] = useState(props.route.params.detail.name);
+  const [title, setTitle] = useState(props.route.params.detail.job);
+  const [about, setAbout] = useState(props.route.params.detail.about);
   const [image, setImage] = useState('');
+  const [id, setId] = useState(props.route.params.detail.id);
 
-  const saveCharacter = () => {
+  const editCharacter = () => {
     try {
       if (name === '') {
         throw new Error('You must enter a name and surname');
@@ -37,20 +38,13 @@ function AddSimpsonScreen(props) {
       }
 
       const list = _.cloneDeep(props.simpsons);
-      var id = 0;
-      list.forEach(item => {
-        if (item.id === id.toString()) id = id + 1;
-      });
-      var characterData = {
-        id: id.toString(),
-        name: name,
-        job: title,
-        about: about,
-        avatar: image,
-      };
-      list.push(characterData);
+      list[props.route.params.index].name = name;
+      list[props.route.params.index].job = title;
+      list[props.route.params.index].about = about;
+      list[props.route.params.index].avatar = image;
+
       props.onSaveCharacter(list);
-      props.navigation.pop();
+      props.navigation.popToTop();
     } catch (error) {
       alert(error.message);
     }
@@ -86,16 +80,15 @@ function AddSimpsonScreen(props) {
         onChangeText={text => setImage(text)}></TextInput>
 
       <Button
-        onPress={() => saveCharacter()}
+        onPress={() => editCharacter()}
         mode="contained"
         style={styles.buttonStyle}
         color="blue">
-        Add Character
+        Edit
       </Button>
     </KeyboardAwareScrollView>
   );
 }
-
 const styles = StyleSheet.create({
   scrolView: {
     flexGrow: 1,
@@ -119,6 +112,7 @@ const theme = {
     accent: 'white',
   },
 };
+
 const mapStateToProps = state => {
   return {
     simpsons: state.simpsons.simpsonsList,
@@ -131,4 +125,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddSimpsonScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(EditSimpsonScreen);

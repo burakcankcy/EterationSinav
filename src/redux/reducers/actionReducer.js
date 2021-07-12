@@ -17,6 +17,7 @@ const actionReducer = (state = initialState, action) => {
         ...state,
         simpsonsList: action.simpsonsList,
       };
+
     default:
       return state;
   }

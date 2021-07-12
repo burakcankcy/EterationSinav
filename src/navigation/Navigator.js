@@ -4,6 +4,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import HomeScreen from '../screens/HomeScreen';
 import AddSimpsonScreen from '../screens/AddSimpsonScreen';
 import DetailSimpsonScreen from '../screens/DetailSimpsonScreen';
+import EditSimpsonScreen from '../screens/EditSimpsonScreen';
 
 const Stack = createStackNavigator();
 
@@ -25,6 +26,11 @@ export default function Navigator() {
           name="DetailSimpson"
           component={DetailSimpsonScreen}
           options={{title: 'Details'}}
+        />
+        <Stack.Screen
+          name="EditSimpson"
+          component={EditSimpsonScreen}
+          options={{title: 'Edit'}}
         />
       </Stack.Navigator>
     </NavigationContainer>

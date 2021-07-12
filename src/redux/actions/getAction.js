@@ -6,7 +6,6 @@ export const getSimpsons = () => {
   return async dispatch => {
     try {
       const response = await fetch(url).then(response => response.json());
-      console.log(response);
       dispatch({
         // eslint-disable-next-line no-undef
         type: GET_SIMPSONS,
